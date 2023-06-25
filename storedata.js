@@ -34,18 +34,40 @@
      }
  }
 
-document.addEventListener('submit' , (e)=>{
-          e.preventDefault();
+// document.addEventListener('submit' , (e)=>{
+//           e.preventDefault();
         
-          var inputs = document.getElementsByTagName('input');
+//           var inputs = document.getElementsByTagName('input');
          
-           let arrInput = [];
-           for(let i=0;i<inputs.length;i++){
-            arrInput[i] = inputs[i].value;
-           }
+//            let arrInput = [];
+//            for(let i=0;i<inputs.length;i++){
+//             arrInput[i] = inputs[i].value;
+//            }
          
-          var object = JSON.stringify(setObj(arrInput));
-          localStorage.setItem("submitObject" , object);
+//           var object = JSON.stringify(setObj(arrInput));
+//           localStorage.setItem("submitObject" , object);
           
           
-    });
+//     });
+  
+
+    // to not override the storage
+     
+    document.addEventListener('submit' , (e)=>{
+        e.preventDefault();
+      
+        var inputs = document.getElementsByTagName('input');
+       
+         let arrInput = [];
+         for(let i=0;i<inputs.length;i++){
+          arrInput[i] = inputs[i].value;
+         }
+       
+        var object = JSON.stringify(setObj(arrInput));
+        localStorage.setItem(arrInput[1] , object);
+        
+        
+  });
+
+  
+
