@@ -1,0 +1,54 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.outer-box{
+    width: 100vw;
+    height: 100vw;
+    background: linear-gradient(to top left, #3ed8ff, #a8f5ff);
+}
+
+.inner-box{
+    width: 600px;
+    margin: 0  auto;
+    position: relative;
+    padding: 20px 40px;
+    border: 2px solid orange;
+    background-color: white;
+     
+}
+
+header h2{
+    font-family: 'Courier New', Courier, monospace;
+   font-size: 1.6rem;
+   text-align: center;
+}
+
+header p{
+    font-family: serif;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.sign-up{
+     margin: 10px  0px  10px 0px;    
+
+}
+.sign-up p{
+    margin: 10px;
+
+}
+.sign-up label{
+    display: block;
+}
+
+.sign-up p input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #cccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-top: 4px;
+}
