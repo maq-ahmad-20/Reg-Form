@@ -50,17 +50,20 @@
           
 //     });
 
+
 var bookeduser = document.getElementById('get-booked-user');
 var form = document.getElementById('sign-up-form');
 
     // to not override the storage
+
     
     form.addEventListener('submit' , (e)=>{
         e.preventDefault();
-      
+        
+      var  arrInput = [];
         var inputs = document.getElementsByTagName('input');
        
-         let arrInput = [];
+         
          for(let i=0;i<inputs.length;i++){
           arrInput[i] = inputs[i].value;
          }
@@ -88,9 +91,26 @@ var form = document.getElementById('sign-up-form');
          button.appendChild(document.createTextNode("Delete User"));
         button.style.margin = '0 auto auto 20px';
         button.style.display = 'inline';
-     
+        
+
+        var editButton = document.createElement('button');
+        editButton.className = 'edit-button';
+        //add id 
+        editButton.setAttribute("deleteButtonID",arrInput[1]);
+        editButton.appendChild(document.createTextNode("Edit User"));
+        editButton.display = 'inline';
+        
         div.appendChild(button);
+        div.appendChild(editButton);
         bookeduser.appendChild(div);
+
+        
+       
+        document.getElementById('name').setAttribute("value" ,"");
+        document.getElementById('phone').setAttribute("value","");
+        form.reset();
+
+        
     });
 
     
@@ -99,15 +119,35 @@ var form = document.getElementById('sign-up-form');
        // console.log(e.target.previousElementSibling.textContent); printing h4 tag text previous to button tag
       
         
-        var buttonid = e.target.id;
-        //console.log(buttonid);
-
-        var removebutton = document.getElementById(buttonid);
+    
+        if(e.target.textContent === "Delete User"){
+            var buttonid = e.target.id;
+            //console.log(e.target.textContent);
+            var removebutton = document.getElementById(buttonid);
+       
         //console.log(removebutton.parentElement);
        // var key = e.target.previousElementSibling.textContent; get text of h4  as button  prev sibbling is h4 
         localStorage.removeItem(buttonid); // passing key as buton id because i have added arr[1] in local and arr[1] as id to the button
         removebutton.parentElement.remove();
-})
+    }else if(e.target.textContent === "Edit User"){
+
+        var ButtonId =e.target.getAttribute("deleteButtonID");
+        
+        var storedObject = localStorage.getItem(ButtonId);
+        console.log(storedObject);
+
+        var enteredFeild = JSON.parse(storedObject);
+        
+        var deleteData = document.getElementById(ButtonId);
+        localStorage.removeItem(ButtonId);
+        deleteData.parentElement.remove();
+
+       document.getElementById('name').setAttribute("value" ,enteredFeild.userName);
+       document.getElementById('phone').setAttribute("value",enteredFeild.userPhoneNo);
+
+     }
+});
            
 
-    
+
+
