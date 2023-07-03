@@ -21,7 +21,7 @@
 // });
 
 
-const crudURL = 'https://crudcrud.com/api/0d8748e2969a45a2b68b6c36b644008f';
+const crudURL = 'https://crudcrud.com/api/22f8ee403f354f7a94f37b4c8da9c5cc';
 
 function setObj(arr) {
     return {
@@ -54,7 +54,7 @@ function setObj(arr) {
 var bookeduser = document.getElementById('get-booked-user');
 var form = document.getElementById('sign-up-form');
 
-
+var edit = undefined;
 // to not override the storage
 
 
@@ -73,21 +73,22 @@ form.addEventListener('submit', (e) => {
     // var object = JSON.stringify(setObj(arrInput));
     // localStorage.setItem(arrInput[1] , object);
 
+    if (edit === undefined) { // to avoid creating another record after subimitng after editing
+        axios.post(`${crudURL}/appointmentData`, setObj(arrInput))
+            .then((response) => {
+                // console.log(response.data._id);
 
-    axios.post(`${crudURL}/appointmentData`, setObj(arrInput))
-        .then((response) => {
-            // console.log(response.data._id);
+                arrInput.push(response.data._id); //  previous we used mail as key to local storage but in crud we using id which created so we can access this id while doing edit and delete
 
-            arrInput.push(response.data._id); //  previous we used mail as key to local storage but in crud we using id which created so we can access this id while doing edit and delete
+                addUserToScreen(arrInput);
 
-            addUserToScreen(arrInput);
-
-        }).catch((err) => {
-            let p = document.createElement('p');
-            p.appendChild(document.createTextNode("Some thing went wrong"));
-            bookeduser.appendChild(p)
-            console.log(err);
-        })
+            }).catch((err) => {
+                let p = document.createElement('p');
+                p.appendChild(document.createTextNode("Some thing went wrong"));
+                bookeduser.appendChild(p)
+                console.log(err);
+            })
+    }
 
 
 
@@ -128,6 +129,7 @@ function addUserToScreen(arrInput) {
     //add id 
     editButton.setAttribute("deleteButtonID", arrInput[1]);
     editButton.appendChild(document.createTextNode("Edit User"));
+    editButton.setAttribute('editButtonId', arrlastId);
     editButton.display = 'inline';
 
     div.appendChild(button);
@@ -191,10 +193,53 @@ bookeduser.addEventListener('click', (e) => {
         // document.getElementById('name').setAttribute("value", enteredFeild.userName);
         // document.getElementById('phone').setAttribute("value", enteredFeild.userPhoneNo);
 
+
+        //edit using axios
+        let editcrudid = e.target.getAttribute('editButtonId');
+        let editButtonId = e.target.getAttribute("deleteButtonID");
+
+
+        // to update the deatis of user with our changing id of user .. first we delete the edit detais on screen and update the values 
+        // in crud with same id with values submited by user
+        axios.get(`${crudURL}/appointmentData/${editcrudid}`).
+            then((res) => {
+
+                document.getElementById(editButtonId).parentElement.remove();
+                document.getElementById('name').setAttribute("value", res.data.userName);
+                document.getElementById('phone').setAttribute("value", res.data.userPhoneNo);
+                edit = "value";
+
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    var arrInput = [];
+
+                    var inputs = document.getElementsByTagName('input');
+
+
+                    for (let i = 0; i < inputs.length; i++) {
+                        arrInput[i] = inputs[i].value;
+                    }
+                    if (edit === 'value') {
+                        axios.put(`${crudURL}/appointmentData/${editcrudid}`, setObj(arrInput))
+                            .then((res) => {
+                                edit = undefined;
+                                arrInput.push(editcrudid)
+                                addUserToScreen(arrInput);
+
+                            })
+
+                    }
+
+
+                })
+
+
+
+            });
+
+
     }
 });
-
-
 // to retrive data after screen refresh
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -212,8 +257,4 @@ window.addEventListener('DOMContentLoaded', () => {
             console.log(err);
         })
 
-})
-
-
-
-
+});

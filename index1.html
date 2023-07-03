@@ -1,67 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registration Form</title>
     <link rel="stylesheet" href="styles.css" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="outer-box">
-        <div class="inner-box">
-            <header>
-            <h2>Book a call</h2>
+      <div class="inner-box">
+        <header>
+          <h2>Book a call</h2>
+
+          <p>
+            Book a call slot and our representatives call you with in 1 hour of
+            selected time
+          </p>
+          <hr />
+        </header>
+        <main class="sign-up">
+          <form class="form" action="#" id="sign-up-form">
+            <p>
+              <label for="name">Name:</label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Enter your name "
+                required
+              />
+            </p>
+            <p>
+              <label for="email">Email:</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Enter your Email id "
+                required
+              />
+            </p>
+            <p>
+              <label for="phone">Phone no:</label>
+              <input
+                type="number"
+                name="phone"
+                id="phone"
+                placeholder="Enter your phone no"
+              />
+            </p>
+            <p>
+              <label for="date">Time For Call</label>
+              <input type="date" name="date" id="date" />
+            </p>
 
             <p>
-                Book a call slot and our representatives call you with in 1 hour of
-                selected time
+              <input type="time" name="time" id="time" />
             </p>
-            <hr>
-        </header>
-            <main class="sign-up">
-                <form class ="form" action="#" id ="sign-up-form">
-                    <p>
-                        <label for="name">Name:</label>
-                        <input type="text"  name="name" id="name" placeholder="Enter your name " required />
-                    </p>
-                    <p>
-                        <label for="email">Email:</label>
-                        <input type="email"  name="email" id="email" " placeholder="Enter your Email id " required />
-                    </p>
-                    <p>
-                        <label for="phone">Phone no:</label>
-                        <input type="number"  name="phone" id="phone" placeholder="Enter your phone no" />
-                    </p>
-                    <p>
-                        <label for="date">Time For Call</label>
-                        <input type="date"  name="date" id="date" />
-                    </p>
 
-                    <p>
-                        <input type="time"  name="time" id="time" />
-                    </p>
-
-                    <p>
-                        <input type="submit" id = "submit"/>
-                    </p>
-                </form>
-            </main>
-           
-            
-
-        </div>
-        <div id="get-booked-user" style="display: inline;">
-
-        </div>
-        <div id = "edit-button-id" >
-
-        </div>
+            <p>
+              <input type="submit" id="submit" />
+            </p>
+          </form>
+        </main>
+      </div>
+      <div id="get-booked-user" style="display: inline"></div>
+      <div id="edit-button-id"></div>
     </div>
 
     <script src="storedata.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
-</body>
-
+  </body>
 </html>
