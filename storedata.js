@@ -168,6 +168,26 @@ var form = document.getElementById('sign-up-form');
 
      }
 });
+
+
+// to retrive data after screen refresh
+
+   window.addEventListener('DOMContentLoaded' , ()=>{
+      
+       axios.get('https://crudcrud.com/api/7226b9ba1aa0404a8438e79aa3ad9eef/appointmentData')
+       .then((res)=>{
+         //console.log(res);
+         for(let i=0;i<res.data.length;i++){
+            var crudObj = res.data[i];
+           
+            addUserToScreen([crudObj.userName , crudObj.userEmail]);
+         }
+
+       }).catch((err)=>{
+        console.log(err);
+       })
+      
+   }) 
            
 
 
